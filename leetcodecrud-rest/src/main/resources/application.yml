@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: pg,mail
+server:
+  port: 8081
+token:
+  recover-clean-in-sec: "3600"
+scheduled:
+  default: "25000"
+default-user:
+  login: "admin"
+  password: "admin"
+  email: "admin-user-42-user-admin@gmail.com"
+  full-name: "Админ Админович Админов"
+generators:
+  event: false
+  message: false

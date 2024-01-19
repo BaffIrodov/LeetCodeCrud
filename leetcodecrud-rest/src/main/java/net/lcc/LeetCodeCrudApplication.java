@@ -1,0 +1,14 @@
+package net.lcc;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+@SpringBootApplication
+@EnableScheduling
+public class LeetCodeCrudApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(LeetCodeCrudApplication.class, args);
+	}
+}
