@@ -17,12 +17,12 @@ public class EventController {
     private final EventService eventService;
 
     @GetMapping("all")
-    public List<EventDto> getAllEventStages() {
+    public List<EventDto> getAllEvent() {
         return null;
     }
 
     @GetMapping("{id}")
-    public EventDto getAllEventStages(@PathVariable("id") Long id) {
+    public EventDto getEvent(@PathVariable("id") Long id) {
         return null;
     }
 }

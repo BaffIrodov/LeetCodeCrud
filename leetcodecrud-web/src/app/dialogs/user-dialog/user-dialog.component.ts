@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { User } from "../../dto/User";
-import { RequestService } from "../../services/request.service";
 import { RolesService } from "../../services/roles.service";
 import { UserService } from "../../services/user.service";
 import { MessageService } from "primeng/api";
@@ -35,7 +34,6 @@ export class UserDialogComponent implements OnInit {
   login: string = "";
 
   constructor(public router: Router,
-              private requestService: RequestService,
               private rolesService: RolesService,
               private userService: UserService,
               public messageService: MessageService) {
@@ -110,30 +108,6 @@ export class UserDialogComponent implements OnInit {
 
   passwordSaveDisabled() {
     return (this.newPassword === "" || this.oldPassword === "" || this.newPassword != this.newPasswordRepeat);
-  }
-
-  telegramStatusIsSubscribe() {
-    return !!this.currentUser.telegramSubscriber;
-  }
-
-  async telegramUnsubscribe() {
-    try {
-      await this.userService.telegramUnsubscribe(this.currentUser.login);
-    } catch (e) {
-      //nothing
-    } finally {
-      this.currentUser = await this.userService.getUser();
-      this.reloadUser.emit();
-    }
-  }
-
-  async telegramUnsubscribeConfirmDialogHide(event: any) {
-    this.acceptDialogVisible = false;
-    if (event === 0) {
-      this.telegramUnsubscribe();
-      this.currentUser = await this.userService.getUser();
-      // await this.ngOnInit();
-    }
   }
 
   signOut() {

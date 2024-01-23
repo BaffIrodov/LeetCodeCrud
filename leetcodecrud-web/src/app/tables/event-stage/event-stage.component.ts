@@ -20,7 +20,7 @@ export class EventStageComponent {
     return this._event;
   }
 
-  @Input("request")
+  @Input("event")
   public set event(value: Event) {
     this._event = value;
     this.getAllEventStagesFromApi();

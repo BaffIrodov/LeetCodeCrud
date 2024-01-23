@@ -3,7 +3,7 @@
 
 <div class="container ">
   <p-toolbar>
-    <div class="table-name">Заказы</div>
+    <div class="table-name">Дефолт родитель</div>
     <nav>
       <p-button icon="pi pi-sync"
                 styleClass="p-button-rounded p-button-warning p-button-outlined"
@@ -61,17 +61,17 @@
     (cellClicked)="onCellClicked($event)">
   </ag-grid-angular>
 
-  <app-request-positions [request]="selectedEvent" class="request-position"></app-request-positions>
+  <app-event-stage [event]="selectedEvent" class="request-position"></app-event-stage>
 
 </div>
 <!-- AG Grid Angular Component -->
 
-<app-request-dialog [openDialog]="openDialog"
+<app-event-dialog [openDialog]="openDialog"
                     *ngIf="openDialog"
                     [item]="selectedEvent"
                     [editMode]="dialogEditMode"
                     (submit)="onDialogSubmit($event)">
-</app-request-dialog>
+</app-event-dialog>
 
 
 <p-confirmDialog #cd [style]="{width: '50vw'}">

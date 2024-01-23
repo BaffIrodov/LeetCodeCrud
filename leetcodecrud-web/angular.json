@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "atomichunter-web": {
+    "defaultcrud-web": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/atomichunter-web",
+            "outputPath": "dist/defaultcrud-web",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "atomichunter-web:build:production"
+              "browserTarget": "defaultcrud-web:build:production"
             },
             "development": {
-              "browserTarget": "atomichunter-web:build:development"
+              "browserTarget": "defaultcrud-web:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "atomichunter-web:build"
+            "browserTarget": "defaultcrud-web:build"
           }
         },
         "test": {

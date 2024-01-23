@@ -1,6 +1,6 @@
 <p-toolbar>
 
-  <div class="table-name">Позиции заказа</div>
+  <div class="table-name">Дефолт ребенок</div>
   <nav>
     <p-button icon="pi pi-sync"
               styleClass="p-button-rounded p-button-warning p-button-outlined"
@@ -62,11 +62,11 @@
   (cellClicked)="onCellClicked($event)">
 </ag-grid-angular>
 
-<app-request-position-dialog [openDialog]="openDialog"
+<app-event-stage-dialog [openDialog]="openDialog"
                              *ngIf="openDialog"
                              [item]="selectedEventStage"
                              [editMode]="editMode"
                              [requestId]="event.id"
                              (submit)="onDialogSubmit($event)">
-</app-request-position-dialog>
+</app-event-stage-dialog>
 

@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Request} from "../../dto/Request";
-import {RequestService} from "../../services/request.service";
 import {MessageService} from "primeng/api";
 import {User} from "../../dto/User";
 import {RolesService} from "../../services/roles.service";
@@ -17,11 +15,10 @@ export class AdminDialogComponent implements OnInit {
   @Input('editMode') editMode: boolean;
   @Output() submit = new EventEmitter<any>();
   @Output() visibleChange = new EventEmitter<any>();
-  dialogTitle = 'Регистрация заказа';
+  dialogTitle = 'Регистрация пользователя';
   roles: { name: string }[];
 
-  constructor(private requestService: RequestService,
-              private rolesService: RolesService,
+  constructor(private rolesService: RolesService,
               private userService: UserService,
               public messageService: MessageService) {
   }

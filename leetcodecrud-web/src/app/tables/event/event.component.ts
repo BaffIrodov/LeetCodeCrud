@@ -7,6 +7,7 @@ import { HttpClient } from "@angular/common/http";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { Event } from "../../dto/Event";
 import { EventService } from "../../services/event.service";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
 
 @Component({
   selector: 'app-event',

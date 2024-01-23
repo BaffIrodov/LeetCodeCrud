@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'atomichunter-web'`, () => {
+  it(`should have as title 'defaultcrud-web'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('atomichunter-web');
+    expect(app.title).toEqual('defaultcrud-web');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('atomichunter-web app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('defaultcrud-web app is running!');
   });
 });

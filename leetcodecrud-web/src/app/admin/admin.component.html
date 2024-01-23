@@ -17,12 +17,6 @@
                       [disabled]="!selectedUser"
                       (onClick)="this.showDialog()">
             </p-button>
-            <p-button [pTooltip]="this.telegramUnsubscribeLabel"
-                      styleClass="p-button-outlined"
-                      [disabled]="!selectedUser || selectedUser.telegramSubscriber == null || !telegramBotIsEnable"
-                      icon="pi pi-sign-out"
-                      (onClick)="this.telegramBotUnsubscribe()">
-            </p-button>
         </nav>
     </p-toolbar>
     <ag-grid-angular
