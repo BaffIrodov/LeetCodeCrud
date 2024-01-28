@@ -5,6 +5,17 @@
             [editMode]="editMode"
             (submit)="onSubmit($event)">
 
+      <app-dialog-row [(item)]="item.eventId"
+                      [disabled]="true"
+                      icon = 'pi pi-user'
+                      title="id дефолт-родителя"
+                      type="number"></app-dialog-row>
+
+  <app-dialog-row [(item)]="item.name"
+                  icon = 'pi pi-user'
+                  title="Название дефолт-ребенка"
+                  type="string"></app-dialog-row>
+
 <!--    <app-dialog-row [(item)]="item.note"-->
 <!--                    title="Примечание"-->
 <!--                    type="string"></app-dialog-row>-->

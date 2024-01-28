@@ -44,7 +44,7 @@ export class EventDialogComponent implements OnInit {
 
   async createEvent(event: Event) {
     try {
-      const rq = await this.eventService.createEvent(event);
+      await this.eventService.createEvent(event);
       this.messageService.add({
         severity: "success",
         summary: "Успех!",
@@ -63,7 +63,7 @@ export class EventDialogComponent implements OnInit {
 
   async updateEvent(event: Event) {
     try {
-      const rq = await this.eventService.updateEvent(event.id, event);
+      await this.eventService.updateEvent(event.id, event);
       this.messageService.add({
         severity: "success",
         summary: "Успех!",

@@ -17,4 +17,5 @@ default-user:
   full-name: "Админ Админович Админов"
 generators:
   event: false
+  event-stage: false
   message: false

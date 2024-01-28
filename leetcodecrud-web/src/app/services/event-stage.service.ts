@@ -5,6 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { ConfigService } from "../config/config.service";
 import { BaseService } from "./base.service";
+import { EventStage } from "../dto/EventStage";
 
 @Injectable({
   providedIn: 'root'
@@ -17,24 +18,32 @@ export class EventStageService extends BaseService {
     super(configService);
   }
 
-  async getAllEventStages() {
+  async getAllEventStages(showArchive: boolean) {
     const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.get<Event[]>(url + "/event-stage/all"));
+    return await firstValueFrom(this.http.get<Event[]>(url + "/event-stage/all", {
+      params: {
+        showArchive: showArchive
+      }
+    }));
   }
 
-  async getEventStage(id: number) {
+  async getEventStageByEventId(id: number, showArchive: boolean) {
     const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.get<Event>(url + `/event-stage/${id}`));
+    return await firstValueFrom(this.http.get<EventStage[]>(url + `/event-stage/${id}`, {
+      params: {
+        showArchive: showArchive
+      }
+    }));
   }
 
-  async createEventStage(event: Event) {
+  async createEventStage(eventStage: EventStage) {
     const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.post(url + "/event-stage/create", event));
+    return await firstValueFrom(this.http.post<EventStage[]>(url + "/event-stage/create", eventStage));
   }
 
-  async updateEventStage(id: number, event: Event) {
+  async updateEventStage(id: number, eventStage: EventStage) {
     const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.put(url + `/event-stage/${id}/update`, event));
+    return await firstValueFrom(this.http.put<EventStage[]>(url + `/event-stage/${id}/update`, eventStage));
   }
 
   async archiveEventStage(id: number) {

@@ -23,7 +23,7 @@ export class EventStageComponent {
   @Input("event")
   public set event(value: Event) {
     this._event = value;
-    this.getAllEventStagesFromApi();
+    this.getAllEventStagesByEventIdFromApi();
     this.selectedEventStage = new EventStage();
   }
 
@@ -34,7 +34,10 @@ export class EventStageComponent {
   public columnDefs: ColDef[] = [
     { field: "id", headerName: "Идентификатор" },
     { field: "eventId", headerName: "Идентификатор ивента" },
-    { field: "name", headerName: "Название" }
+    { field: "name", headerName: "Название" },
+    {field: 'archive', headerName: 'Архив', hide: !this.showArchive, cellRenderer: (params: { archive: any; }) => {
+        return `<input disabled="true" type='checkbox' checked />`;
+      } }
   ];
 
   // DefaultColDef sets props common to all Columns
@@ -50,7 +53,7 @@ export class EventStageComponent {
 
   styles: {};
   // Data that gets displayed in the grid
-  public rowData!: any[];
+  public rowData: EventStage[];
 
   editMode: boolean = false;
   openDialog: boolean = false;
@@ -69,7 +72,7 @@ export class EventStageComponent {
 
   async onGridReady(params: GridReadyEvent) {
     if (this.event && this.event.id) {
-      await this.getAllEventStagesFromApi();
+      await this.getAllEventStagesByEventIdFromApi();
     }
   }
 
@@ -78,11 +81,10 @@ export class EventStageComponent {
     this.selectedEventStage = e.data;
   }
 
-  async getAllEventStagesFromApi() {
+  async getAllEventStagesByEventIdFromApi() {
     if (this.event && this.event.id) {
       this.agGrid.api.showLoadingOverlay();
-      // const eventStages = await this.requestService.getRequestPositions(this.event.id, this.showArchive);
-      this.rowData = [];
+      this.rowData = await this.eventStageService.getEventStageByEventId(this.event.id, this.showArchive);
     }
   }
 
@@ -100,7 +102,7 @@ export class EventStageComponent {
 
   async onDialogSubmit($event: any) {
     this.openDialog = false;
-    await this.getAllEventStagesFromApi();
+    await this.getAllEventStagesByEventIdFromApi();
   }
 
   createRequestPosition() {
@@ -114,37 +116,37 @@ export class EventStageComponent {
   }
 
   archiveRequestPosition() {
-    // this.confirmationService.confirm({
-    //   message: "Отправить позицию в архив?",
-    //   accept: async () => {
-    //     try {
-    //       await this.requestService.archiveRequestPosition(this.selectedEventStage.id);
-    //       this.messageService.add({
-    //         severity: "success",
-    //         summary: "Успех!",
-    //         detail: "Позиция переведена в архив",
-    //         life: 5000
-    //       });
-    //       await this.getAllEventStagesFromApi();
-    //     } catch (e: any) {
-    //       this.messageService.add({
-    //         severity: "error",
-    //         summary: "Ошибка...",
-    //         detail: e.error.message,
-    //         life: 5000
-    //       });
-    //     }
-    //   },
-    //   reject: () => {
-    //     // can implement on cancel
-    //   }
-    // });
+    this.confirmationService.confirm({
+      message: "Отправить позицию в архив?",
+      accept: async () => {
+        try {
+          await this.eventStageService.archiveEventStage(this.selectedEventStage.id);
+          this.messageService.add({
+            severity: "success",
+            summary: "Успех!",
+            detail: "Позиция переведена в архив",
+            life: 5000
+          });
+          await this.getAllEventStagesByEventIdFromApi();
+        } catch (e: any) {
+          this.messageService.add({
+            severity: "error",
+            summary: "Ошибка...",
+            detail: e.error.message,
+            life: 5000
+          });
+        }
+      },
+      reject: () => {
+        // can implement on cancel
+      }
+    });
   }
 
   async showArchivePressed() {
     if (this.agGrid) {
       this.agGrid.columnApi.setColumnVisible("archive", this.showArchive);
     }
-    await this.getAllEventStagesFromApi();
+    await this.getAllEventStagesByEventIdFromApi();
   }
 }

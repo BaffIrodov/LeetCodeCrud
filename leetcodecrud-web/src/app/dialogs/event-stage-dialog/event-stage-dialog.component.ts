@@ -13,7 +13,7 @@ export class EventStageDialogComponent {
   @Input("openDialog") visible: boolean = false;
   @Input("item") item: EventStage = new EventStage();
   @Input("editMode") editMode: boolean;
-  @Input("requestId") requestId: number;
+  @Input("eventId") eventId: number;
   @Output() submit = new EventEmitter<any>();
   @Output() visibleChange = new EventEmitter<any>();
   dialogTitle = "Регистрация ребенка";
@@ -29,6 +29,9 @@ export class EventStageDialogComponent {
     } else {
       this.item = new EventStage();
       this.dialogTitle = "Регистрация ребенка";
+    }
+    if (!!this.eventId) {
+      this.item.eventId = this.eventId;
     }
   }
 
@@ -46,7 +49,7 @@ export class EventStageDialogComponent {
 
   async createRequestPosition(eventStage: EventStage) {
     try {
-      // const rq = await this.eventStageService.createEventStage(eventStage);
+      await this.eventStageService.createEventStage(eventStage);
       this.messageService.add({
         severity: "success",
         summary: "Успех!",
@@ -65,7 +68,7 @@ export class EventStageDialogComponent {
 
   async updateRequestPosition(eventStage: EventStage) {
     try {
-      // const rq = await this.eventStageService.updateEventStage(eventStage.id, eventStage);
+      await this.eventStageService.updateEventStage(eventStage.id, eventStage);
       this.messageService.add({
         severity: "success",
         summary: "Успех!",

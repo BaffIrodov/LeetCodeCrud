@@ -24,7 +24,8 @@ public class EventReader {
         return Projections.bean(
                 EventDto.class,
                 event.id,
-                event.name
+                event.name,
+                event.archive
         );
     }
 
