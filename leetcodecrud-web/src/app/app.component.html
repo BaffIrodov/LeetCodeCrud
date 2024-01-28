@@ -10,7 +10,7 @@
 
     <div class="splitter"></div>
 
-    <div class="p-toolbar-group-end"> <!-- *ngIf="userAuth">-->
+    <div *ngIf="userAuth" class="p-toolbar-group-end">
       <div class="burger-button" [ngClass]="{'active': isActiveBurger}"
            (click)="isActiveBurger = !isActiveBurger">
         <span></span>
@@ -39,9 +39,9 @@
                     [tooltipPosition]="'left'">
           </p-button>
 
-          <div class="splitter"></div><!-- *ngIf="userAuth"-->
+          <div *ngIf="userAuth" class="splitter"></div>
 
-          <div (click)="showNewPositions()" class="ring" pTooltip="Посмотреть уведомления"> <!--*ngIf="userAuth"-->
+          <div *ngIf="userAuth" (click)="showNewPositions()" class="ring" pTooltip="Посмотреть уведомления">
             <i style="font-size: 26px" [class.bell-anim]="messages.length > 0" class="pi pi-bell"></i>
             <span style="font-size: 22px; margin-left: 10px">({{messages.length}})</span>
           </div>

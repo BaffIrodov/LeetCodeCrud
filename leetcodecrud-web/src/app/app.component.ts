@@ -18,7 +18,6 @@ import {style} from "@angular/animations";
 export class AppComponent implements OnInit {
   title = "defaultcrud-webapp";
   userAuth: boolean = false;
-  userTelegramSubscriber: boolean = false;
   userRole: string | undefined = "";
   userLogin: string | null = "";
   userFullName: string | null = "";
@@ -75,11 +74,7 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.getTelegramBotCondition();
     this.user = await this.userService.getUser();
-    if (this.user) {
-      this.userTelegramSubscriber = await this.userService.getTelegramSubscribeStatus();
-    }
     this.messages = await this.notificationService.getNewMessages();
   }
 
@@ -102,19 +97,6 @@ export class AppComponent implements OnInit {
     return this.messages;
   }
 
-  async toTelegramSubscribe() {
-    if (this.user) {
-      let link = await this.userService.getTelegramLink();
-      window.open(link[0]);
-    }
-  }
-
-  async getTelegramBotCondition() {
-    if (this.user) {
-      this.telegramBotIsEnable = await this.userService.getTelegramBotCondition();
-    }
-  }
-
   async openUserDialog() {
     if (this.user) {
       await this.userDialogComponent.ngOnInit(this.user);
@@ -125,7 +107,6 @@ export class AppComponent implements OnInit {
   async reloadUser(event: any) {
     this.user = await this.userService.getUser();
     if (!!this.user) {
-      this.userTelegramSubscriber = await this.userService.getTelegramSubscribeStatus();
       this.userAuth = true;
       this.userLogin = this.user.login;
       this.userFullName = this.user.fullName;

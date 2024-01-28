@@ -1,12 +1,10 @@
 package net.lcc.controllers;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import net.lcc.dto.EventDto;
 import net.lcc.services.EventService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,12 +15,30 @@ public class EventController {
     private final EventService eventService;
 
     @GetMapping("all")
-    public List<EventDto> getAllEvent() {
-        return null;
+    public List<EventDto> getAllEvents(@RequestParam boolean showArchive) {
+        return eventService.getAllEvents(showArchive);
     }
 
     @GetMapping("{id}")
     public EventDto getEvent(@PathVariable("id") Long id) {
-        return null;
+        return eventService.getEvent(id);
+    }
+
+    @PostMapping("create")
+    @Transactional
+    public EventDto createEvent(@RequestBody EventDto eventDto) {
+        return this.eventService.createEvent(eventDto);
+    }
+
+    @PutMapping("{id}/update")
+    @Transactional
+    public EventDto updateEvent(@PathVariable Long id, @RequestBody EventDto eventDto) {
+        return this.eventService.updateEvent(id, eventDto);
+    }
+
+    @DeleteMapping("{id}/archive")
+    @Transactional
+    public void archiveEvent(@PathVariable Long id) {
+        this.eventService.archiveEvent(id);
     }
 }

@@ -7,7 +7,7 @@
     <nav>
       <p-button icon="pi pi-sync"
                 styleClass="p-button-rounded p-button-warning p-button-outlined"
-                (click)="getAllRequestsFromApi()">
+                (click)="getAllDefaultParentsFromApi()">
       </p-button>
 
       <p-button
@@ -36,7 +36,7 @@
 
       <p-checkbox
         [(ngModel)]="showArchive"
-        label="Архив"
+        label="Показать только архив"
         [binary]="true"
         inputId="binary"
         (ngModelChange)="showArchivePressed()">
@@ -55,7 +55,7 @@
     [loadingCellRenderer]="loadingCellRenderer"
     [loadingCellRendererParams]="loadingCellRendererParams"
     [overlayNoRowsTemplate]="'Данные отсутствуют'"
-    [rowSelection]="'multiple'"
+    [rowSelection]="'single'"
     [animateRows]="true"
     (gridReady)="onGridReady($event)"
     (cellClicked)="onCellClicked($event)">

@@ -17,9 +17,13 @@ export class EventService extends BaseService {
     super(configService);
   }
 
-  async getAllEvents() {
+  async getAllEvents(showArchive: boolean) {
     const url = await this.getBackendUrl();
-    return await firstValueFrom(this.http.get<Event[]>(url + "/event/all"));
+    return await firstValueFrom(this.http.get<Event[]>(url + "/event/all", {
+      params: {
+        showArchive: showArchive
+      }
+    }));
   }
 
   async getEvent(id: number) {

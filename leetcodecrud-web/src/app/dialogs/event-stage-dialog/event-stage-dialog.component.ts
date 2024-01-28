@@ -46,7 +46,7 @@ export class EventStageDialogComponent {
 
   async createRequestPosition(eventStage: EventStage) {
     try {
-      const rq = await this.eventStageService.createEventStage(eventStage);
+      // const rq = await this.eventStageService.createEventStage(eventStage);
       this.messageService.add({
         severity: "success",
         summary: "Успех!",
@@ -65,7 +65,7 @@ export class EventStageDialogComponent {
 
   async updateRequestPosition(eventStage: EventStage) {
     try {
-      const rq = await this.eventStageService.updateEventStage(eventStage.id, eventStage);
+      // const rq = await this.eventStageService.updateEventStage(eventStage.id, eventStage);
       this.messageService.add({
         severity: "success",
         summary: "Успех!",

@@ -99,30 +99,6 @@ export class UserService extends BaseService {
         return await firstValueFrom(this.http.post<boolean>(url + `/user/password-change`, changeRequest));
     }
 
-    async getTelegramSubscribeStatus() {
-        const url = await this.getBackendUrl();
-        let userIsSubscribed = await firstValueFrom(
-            this.http.get<boolean>(url + '/user/telegram-subscribe-status'));
-        console.log(userIsSubscribed ? "Пользователь подписан на телеграм-бота" :
-            "Пользователь не подписан на телеграм-бота")
-        return userIsSubscribed;
-    }
-
-    async telegramUnsubscribe(login: string) {
-        const url = await this.getBackendUrl();
-        return await firstValueFrom(this.http.get<void>(url + `/user/telegram-unsubscribe/${login}`));
-    }
-
-    async getTelegramLink() {
-        const url = await this.getBackendUrl();
-        return await firstValueFrom(this.http.get<string[]>(url + '/user/telegram-link'));
-    }
-
-    async getTelegramBotCondition() { //true - if enabled
-        const url = await this.getBackendUrl();
-        return await firstValueFrom(this.http.get<boolean>(url + '/user/telegram-enable'));
-    }
-
     async sendPasswordRecoverLetterToEmail(email: string) {
         const url = await this.getBackendUrl();
         return await firstValueFrom(

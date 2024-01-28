@@ -28,17 +28,26 @@ public class EventReader {
         );
     }
 
+    public EventDto getEventById(Long eventId) {
+        return queryFactory.from(event)
+                .select(getMappedSelectForEventDto())
+                .where(event.id.eq(eventId))
+                .fetchFirst();
+    }
+
     // todo доделать
-    public List<EventDto> getEventsWithStages(Long positionId) {
+    public EventDto getEventWithStages(Long positionId) {
         return queryFactory.from(event)
                 .leftJoin(eventStage).on(eventStage.eventId.eq(event.id))
                 .select(getMappedSelectForEventDto())
-                .fetch();
+                .where(event.id.eq(positionId))
+                .fetchOne();
     }
 
-    public List<EventDto> getAllEvents() {
+    public List<EventDto> getAllEvents(boolean showArchive) {
         return queryFactory.from(event)
                 .select(getMappedSelectForEventDto())
+                .where(event.archive.eq(showArchive))
                 .fetch();
     }
 }

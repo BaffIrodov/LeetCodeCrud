@@ -19,8 +19,6 @@ export class AdminComponent implements OnInit {
     user: User[] = [];
     displayDialog: boolean = false;
     roles: { name: string }[] = [];
-    telegramBotIsEnable: boolean = false;
-    telegramUnsubscribeLabel: string = 'Отписать пользователя от телеграм-бота';
 
     public loadingCellRendererParams: any = {
         loadingMessage: 'One moment please...',
@@ -33,8 +31,7 @@ export class AdminComponent implements OnInit {
         {field: 'login', headerName: 'Логин', filter: "agTextColumnFilter" },
         {field: 'role', headerName: 'Роль', filter: "agTextColumnFilter" },
         {field: 'email', headerName: 'Почта', width: 250, filter: "agTextColumnFilter" },
-        {field: 'fullName', headerName: 'ФИО', width: 250, filter: "agTextColumnFilter" },
-        {field: 'telegramSubscriber.login', headerName: 'Телеграм', filter: "agTextColumnFilter" }
+        {field: 'fullName', headerName: 'ФИО', width: 250, filter: "agTextColumnFilter" }
     ];
     public defaultColDef: ColDef = {
         editable: false,
@@ -55,7 +52,6 @@ export class AdminComponent implements OnInit {
 
     async ngOnInit() {
         this.loading = true;
-        await this.getTelegramBotCondition();
     }
 
     async onGridReady(params: GridReadyEvent) {
@@ -75,27 +71,6 @@ export class AdminComponent implements OnInit {
     showDialog() {
         this.displayDialog = true;
         this.userDto = structuredClone(this.selectedUser);
-    }
-
-    async telegramBotUnsubscribe() {
-        await this.userService.telegramUnsubscribe(this.selectedUser.login);
-        this.user = await this.userService.getUsers();
-        this.messageService.add({
-            severity: 'success',
-            summary: 'Успех!',
-            detail: 'Пользователь отписан от телеграм-бота',
-            life: 5000
-        });
-        this.getAllUsersFromApi();
-    }
-
-    async getTelegramBotCondition() {
-        this.telegramBotIsEnable = await this.userService.getTelegramBotCondition();
-        if (this.telegramBotIsEnable) {
-            this.telegramUnsubscribeLabel = 'Отписать пользователя от телеграм-бота';
-        } else {
-            this.telegramUnsubscribeLabel = 'Telegram неактивен';
-        }
     }
 
     showFilter() {

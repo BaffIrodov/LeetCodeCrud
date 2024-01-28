@@ -9,9 +9,11 @@ import net.lcc.entities.Event;
 public class EventDto {
     private Long id;
     private String name;
+    private boolean archive;
 
     public EventDto(Event event) {
         this.id = event.getId();
         this.name = event.getName();
+        this.archive = event.isArchive();
     }
 }

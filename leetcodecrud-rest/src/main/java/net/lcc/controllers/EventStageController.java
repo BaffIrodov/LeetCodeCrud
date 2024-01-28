@@ -1,5 +1,6 @@
 package net.lcc.controllers;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import net.lcc.dto.EventStageDto;
 import net.lcc.dto.MessageDto;

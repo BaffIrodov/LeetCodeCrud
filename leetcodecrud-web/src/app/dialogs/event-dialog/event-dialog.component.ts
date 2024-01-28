@@ -15,7 +15,7 @@ export class EventDialogComponent implements OnInit {
   @Input("editMode") editMode: boolean;
   @Output() submit = new EventEmitter<any>();
   @Output() visibleChange = new EventEmitter<any>();
-  dialogTitle = "Регистрация родителя";
+  dialogTitle = "Регистрация дефолт-родителя";
 
   constructor(private eventService: EventService,
               public messageService: MessageService) {
@@ -23,10 +23,10 @@ export class EventDialogComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.editMode) {
-      this.dialogTitle = "Редактирование родителя";
+      this.dialogTitle = "Редактирование дефолт-родителя";
     } else {
       this.item = new Event();
-      this.dialogTitle = "Регистрация родителя";
+      this.dialogTitle = "Регистрация дефолт-родителя";
     }
   }
 

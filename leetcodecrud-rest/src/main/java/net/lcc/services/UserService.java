@@ -2,6 +2,7 @@ package net.lcc.services;
 
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import net.lcc.repositories.UserRepository;
 import net.lcc.dto.UserDto;
@@ -15,9 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -155,20 +153,36 @@ public class UserService {
     @Value("${default-user.full-name}")
     private String adminFullName;
 
-    public void initializeAdmin() {
-//        User adminRole = userRepository.findByLogin("admin");
-//        if (adminRole == null) {
-//            this.generateAdminUser();
-//        }
+    @Value("${initialize.admin}")
+    private boolean adminInitialization;
+
+    @Value("${initialize.user}")
+    private boolean userInitialization;
+
+    @PostConstruct
+    public void initializeAllUsers() {
+        if (adminInitialization) {
+            initializeAdmin();
+        }
+        if (userInitialization) {
+            initializeAllOtherUsers();
+        }
     }
 
-    public void initializeAllOtherRoles() {
-//        User userRole = userRepository.findByLogin("user");
-//        if (userRole == null) generateUserUser();
-//        User chiefRole = userRepository.findByLogin("chief");
-//        if (chiefRole == null) generateChiefUser();
-//        User contragentRole = userRepository.findByLogin("contragent");
-//        if (contragentRole == null) generateContragentUser();
+    public void initializeAdmin() {
+        User adminRole = userRepository.findByLogin("admin");
+        if (adminRole == null) {
+            this.generateAdminUser();
+        }
+    }
+
+    public void initializeAllOtherUsers() {
+        User userRole = userRepository.findByLogin("user");
+        if (userRole == null) generateUserUser();
+        User chiefRole = userRepository.findByLogin("chief");
+        if (chiefRole == null) generateChiefUser();
+        User contragentRole = userRepository.findByLogin("contragent");
+        if (contragentRole == null) generateContragentUser();
     }
 
     private void generateAdminUser() {

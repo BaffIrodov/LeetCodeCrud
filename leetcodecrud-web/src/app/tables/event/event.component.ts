@@ -7,7 +7,6 @@ import { HttpClient } from "@angular/common/http";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { Event } from "../../dto/Event";
 import { EventService } from "../../services/event.service";
-import { ConfirmDialogModule } from "primeng/confirmdialog";
 
 @Component({
   selector: 'app-event',
@@ -22,17 +21,17 @@ export class EventComponent implements OnInit {
   filter: boolean = false;
   openDialog: boolean = false;
   loading: boolean = false;
-  showArchive = false;
+  showArchive: boolean = false;
 
   public columnDefs: ColDef[] = [
     { field: "id", headerName: "Идентификатор" },
-    { field: "name", headerName: "Название" }
+    { field: "name", headerName: "Название" },
     // {field: 'releaseDate', headerName: 'Дата' , hide: this.showArchive, cellRenderer: (data: { value: string | number | Date; }) => {
     //     return data.value ? (new Date(data.value)).toLocaleDateString() : '';
     //   }},
-    // {field: 'archive', headerName: 'Архив', hide: !this.showArchive, cellRenderer: (params: { value: any; }) => {
-    //     return `<input disabled="true" type='checkbox' ${params.value ? 'checked' : ''} />`;
-    //   } }
+    {field: 'archive', headerName: 'Архив', hide: !this.showArchive, cellRenderer: (params: { archive: any; }) => {
+        return `<input disabled="true" type='checkbox' checked />`;
+      } }
   ];
 
   // DefaultColDef sets props common to all Columns
@@ -100,19 +99,18 @@ export class EventComponent implements OnInit {
 
   async onGridReady(grid: any) {
     this.agGrid = grid;
-    await this.getAllRequestsFromApi();
+    await this.getAllDefaultParentsFromApi();
   }
 
-  async getAllRequestsFromApi() {
+  async getAllDefaultParentsFromApi() {
     this.agGrid.api.showLoadingOverlay();
-    // const requests = await this.requestService.getRequests(this.showArchive);
-    this.rowData = [];
+    this.rowData = await this.eventService.getAllEvents(this.showArchive);
     this.loading = false;
   }
 
   // Example of consuming Grid Event
   onCellClicked(e: CellClickedEvent): void {
-    // this.selectedRequest = e.data;
+    this.selectedEvent = e.data;
   }
 
   // Example using Grid's API
@@ -123,7 +121,7 @@ export class EventComponent implements OnInit {
   async onDialogSubmit($event: any) {
     this.openDialog = false;
     if ($event) {
-      await this.getAllRequestsFromApi();
+      await this.getAllDefaultParentsFromApi();
     }
   }
 
@@ -133,44 +131,44 @@ export class EventComponent implements OnInit {
   }
 
   updateRequest() {
-    // if (this.selectedRequest) {
-    //   this.openDialog = true;
-    //   this.dialogEditMode = true;
-    // }
+    if (this.selectedEvent) {
+      this.openDialog = true;
+      this.dialogEditMode = true;
+    }
   }
 
   archiveRequest() {
-    // this.confirmationService.confirm({
-    //   message: 'Отправить позицию в архив?',
-    //   accept: async () => {
-    //     try {
-    //       await this.requestService.archiveRequest(this.selectedRequest.id);
-    //       this.messageService.add({
-    //         severity: 'success',
-    //         summary: 'Успех!',
-    //         detail: 'Позиция переведена в архив',
-    //         life: 5000
-    //       });
-    //       await this.getAllRequestsFromApi();
-    //     } catch (e: any) {
-    //       this.messageService.add({
-    //         severity: 'error',
-    //         summary: 'Ошибка...',
-    //         detail: e.error.message,
-    //         life: 5000
-    //       });
-    //     }
-    //   },
-    //   reject: () => {
-    //     // can implement on cancel
-    //   }
-    // });
+    this.confirmationService.confirm({
+      message: 'Отправить позицию в архив?',
+      accept: async () => {
+        try {
+          await this.eventService.archiveEvent(this.selectedEvent.id);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Успех!',
+            detail: 'Позиция переведена в архив',
+            life: 5000
+          });
+          await this.getAllDefaultParentsFromApi();
+        } catch (e: any) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Ошибка...',
+            detail: e.error.message,
+            life: 5000
+          });
+        }
+      },
+      reject: () => {
+        // can implement on cancel
+      }
+    });
   }
 
   async showArchivePressed() {
     if (this.agGrid) {
       this.agGrid.columnApi.setColumnVisible('archive', this.showArchive);
     }
-    await this.getAllRequestsFromApi();
+    await this.getAllDefaultParentsFromApi();
   }
 }
