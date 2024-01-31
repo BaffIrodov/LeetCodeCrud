@@ -16,6 +16,6 @@ default-user:
   email: "admin-user-42-user-admin@gmail.com"
   full-name: "Админ Админович Админов"
 generators:
-  event: false
-  event-stage: false
+  default-parent: false
+  default-child: false
   message: false

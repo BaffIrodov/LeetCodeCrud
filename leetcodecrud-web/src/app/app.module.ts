@@ -37,8 +37,8 @@ import { CalendarModule } from "primeng/calendar";
 import { ChipsModule } from "primeng/chips";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { ConfirmationService, MessageService } from "primeng/api";
-import { EventDialogComponent } from "./dialogs/event-dialog/event-dialog.component";
-import { EventStageDialogComponent } from "./dialogs/event-stage-dialog/event-stage-dialog.component";
+import { DefaultParentDialogComponent } from "./dialogs/default-parent-dialog/default-parent-dialog.component";
+import { DefaultChildDialogComponent } from "./dialogs/default-child-dialog/default-child-dialog.component";
 import { DropdownModule } from "primeng/dropdown";
 import { AdminDialogComponent } from "./dialogs/admin-dialog/admin-dialog.component";
 import { HttpHelperInterceptor } from "./interceptors/http-helper.interceptor";
@@ -54,8 +54,8 @@ import { SplitButtonModule } from "primeng/splitbutton";
 import { PasswordRecoverFormComponent } from "./password-recover-form/password-recover-form.component";
 import { MenubarModule } from "primeng/menubar";
 import { MenuModule } from "primeng/menu";
-import { EventComponent } from "./tables/event/event.component";
-import { EventStageComponent } from "./tables/event-stage/event-stage.component";
+import { DefaultParentComponent } from "./tables/default-parent/default-parent.component";
+import { DefaultChildComponent } from "./tables/default-child/default-child.component";
 
 @NgModule({
   declarations: [
@@ -66,15 +66,15 @@ import { EventStageComponent } from "./tables/event-stage/event-stage.component"
     AnalyticsComponent,
     DialogComponent,
     DialogRowComponent,
-    EventDialogComponent,
-    EventStageDialogComponent,
+    DefaultParentDialogComponent,
+    DefaultChildDialogComponent,
     AdminDialogComponent,
     LoadingCellRendererComponent,
     RegistrationFormComponent,
     UserDialogComponent,
     PasswordRecoverFormComponent,
-    EventComponent,
-    EventStageComponent
+    DefaultParentComponent,
+    DefaultChildComponent
   ],
   imports: [
     BrowserModule,

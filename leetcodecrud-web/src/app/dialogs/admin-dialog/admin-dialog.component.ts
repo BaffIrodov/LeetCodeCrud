@@ -36,7 +36,7 @@ export class AdminDialogComponent implements OnInit {
   }
 
   async onSubmit($event: any) {
-    console.log($event, '$event admin');
+    console.log($event, '$default-parent admin');
     this.submit.emit($event);
     this.visible = false;
   }
