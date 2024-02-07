@@ -17,7 +17,7 @@
   --shadow: #CCCCCC;
   --illumination: #fdc6be;
   --dialog-footer: aliceblue;
-  --tiffany-color: #0cbab5;
+  --tiffany-color: #79a8a7;
 }
 
 .p-button-success {
@@ -101,7 +101,7 @@ input, textarea {
   color: var(--tiffany-color) !important;
   cursor: pointer;
   text-align: center;
-  text-underline: #0ABAB5;
+  text-underline: #79a8a7;
   text-decoration: underline;
 }
 
@@ -170,7 +170,8 @@ body {
   left: 0;
   height: 100%;
   width: 100%;
-  background: #6fd4d0;
+  background: #79a8a7;
+  opacity: 0.2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -257,7 +258,7 @@ select {
 }
 
 .splitter {
-  border-right: 1px solid #0ABAB5;
+  border-right: 1px solid #79a8a7;
   height: 40px;
   margin-left: 10px;
   margin-right: 10px;
